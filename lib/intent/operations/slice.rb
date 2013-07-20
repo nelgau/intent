@@ -22,7 +22,7 @@ module Intent
       trace_map = map_execution(trace)
 
       puts "[slice] Slicing files...".green
-      slice_source_files(trace_map)
+      slice_source_files(trace_map, options)
 
       puts "[slice] Done. :)".green
 
@@ -55,10 +55,13 @@ module Intent
         trace_map
       end
 
-      def slice_source_files(trace_map)
+      def slice_source_files(trace_map, options)
+        include_domains = [:source, options[:include]].flatten.compact
+
         trace_map.each_pair do |file, lines|
           next unless should_slice?(file)
           type, display_path, sliced_path = determine_route(file)
+          next unless include_domains.include?(type)
 
           tag = tag_for_type(type)
           puts "  -> #{tag}#{display_path}"
