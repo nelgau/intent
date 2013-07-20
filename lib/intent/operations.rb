@@ -1,0 +1,1 @@
+require 'intent/operations/slice'
