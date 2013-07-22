@@ -16,10 +16,10 @@ module Intent
       prepare
 
       puts "[slice] Running...".green
-      trace = Recorder.run!(&block)
+      root_frame = Recorder.run!(&block)
 
       puts "[slice] Analyzing trace...".green
-      trace_map = map_execution(trace)
+      trace_map = map_execution(root_frame)
 
       puts "[slice] Slicing files...".green
       slice_source_files(trace_map, options)
@@ -47,10 +47,10 @@ module Intent
         end
       end
 
-      def map_execution(trace)
+      def map_execution(root_frame)
         trace_map = {}
-        trace.each do |event|
-          (trace_map[event.file] ||= Set.new) << event.line
+        root_frame.walk_in_order do |fr|
+          (trace_map[fr.file] ||= Set.new) << fr.first_line
         end
         trace_map
       end
