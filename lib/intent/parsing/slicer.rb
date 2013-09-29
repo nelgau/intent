@@ -27,7 +27,7 @@ module Intent
     def scope_for_node(node)
       scope = Scope.new(node, [])
       case node.type
-      when *Parser::STRUCTURAL_TYPES 
+      when *Parser::STRUCTURAL_TYPES
         node.children.map do |c|
           scope.children << scope_for_node(c) if c
         end
@@ -44,7 +44,7 @@ module Intent
     def index_range_for_scope(ranges, scope)
       scope.children.each { |s| index_range_for_scope(ranges, s) }
       case scope.node.type
-      when *Parser::STRUCTURAL_TYPES 
+      when *Parser::STRUCTURAL_TYPES
       else
         range = scope.node.loc.expression
         ranges[(range.first_line..range.last_line)] = scope
@@ -72,7 +72,7 @@ module Intent
 
     def add_scope_to_output(scope)
       case scope.node.type
-      when *Parser::STRUCTURAL_TYPES 
+      when *Parser::STRUCTURAL_TYPES
         @transformer.emit_structural(scope) do
           scope.children.each { |c| add_scope_to_output(c) }
         end

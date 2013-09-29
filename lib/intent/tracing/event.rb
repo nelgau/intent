@@ -21,6 +21,6 @@ module Intent
 
     def to_s
       self.inspect
-    end      
+    end
   end
 end

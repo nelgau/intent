@@ -1,6 +1,8 @@
 require 'parser'
 require 'parser/current'
 require 'segment_tree'
+require 'colored'
+
 require 'pathname'
 
 require 'intent/tracing'

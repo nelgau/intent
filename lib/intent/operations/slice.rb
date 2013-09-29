@@ -39,8 +39,8 @@ module Intent
 
       def prepare
         DOMAINS.each_pair do |key, value|
-          if (domain_path = value.second.call)
-            slice_path = Pathname.pwd + value.first
+          if (domain_path = value[1].call)
+            slice_path = Pathname.pwd + value[0]
             FileUtils.rm_rf(slice_path) rescue nil
             FileUtils.mkdir_p(slice_path)
           end
@@ -105,7 +105,11 @@ module Intent
 
         [type, relative, sliced_file_path]
       end
-    
+
+      def pwd_path
+        Pathname.pwd
+      end
+
       def ruby_home_path
         return unless ENV['MY_RUBY_HOME']
         Pathname.new(ENV['MY_RUBY_HOME']).realpath
@@ -118,8 +122,8 @@ module Intent
 
       def tag_for_type(type)
         case type
-        when :gems then '[gems] '.blue      
-        when :ruby then '[ruby] '.red        
+        when :gems then '[gems] '.blue
+        when :ruby then '[ruby] '.red
         else ''
         end
       end

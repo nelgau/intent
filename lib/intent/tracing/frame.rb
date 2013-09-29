@@ -8,7 +8,7 @@ module Intent
     attr_reader :last_line
 
     attr_reader :subframes
-    attr_reader :events  
+    attr_reader :events
     attr_reader :annotations
 
     def initialize(file, line, klass, id)

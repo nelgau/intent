@@ -28,7 +28,7 @@ module Intent
       @spacing_scopes << scope if scope.should_space?
 
       case scope.type
-      when :begin          
+      when :begin
         yield
       when *(Parser::STRUCTURAL_TYPES - [:begin])
         lines << source_lines[scope.first_line - 1]
@@ -38,7 +38,7 @@ module Intent
 
       @scope_stack.pop
       @spacing_scopes.delete(scope)
-      add_empty_line if should_space?        
+      add_empty_line if should_space?
     end
 
     def emit_terminal(scope)

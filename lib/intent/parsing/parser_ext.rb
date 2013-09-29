@@ -17,5 +17,5 @@ module Parser
       end
     end
   end
-  
+
 end
